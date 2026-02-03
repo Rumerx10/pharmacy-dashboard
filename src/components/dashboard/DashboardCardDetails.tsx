@@ -68,6 +68,8 @@ const DashboardCardDetails = ({ card, onClose }: DashboardCardDetailsProps) => {
   const getApiUrl = useMemo(() => {
     if (card.id === "ES") {
       return `/get-inv-info?flag=E&performBy=&appId=1&page=${currentPage}&size=${pageSize}`;
+    } else if (card.id === "NA") {
+      return `/get-inv-info?flag=N&performBy=&appId=1&page=${currentPage}&size=${pageSize}`;
     }
     return `/get-dash-summery-details?flag=${card.id}&page=${currentPage}&size=${pageSize}`;
   }, [card.id, currentPage, pageSize]);
@@ -90,16 +92,17 @@ const DashboardCardDetails = ({ card, onClose }: DashboardCardDetailsProps) => {
   // Extract data with safe defaults
   const tableData = useMemo(() => {
     if (!data?.data?.contents) return [];
-    
+
     // Apply filtering locally if needed
     let filteredData = data.data.contents;
-    
+
     if (filtering) {
       const searchTerm = filtering.toLowerCase();
-      filteredData = filteredData.filter((item: InventoryItem) =>
-        item.itemName?.toLowerCase().includes(searchTerm) ||
-        item.genericName?.toLowerCase().includes(searchTerm) ||
-        item.supplierName?.toLowerCase().includes(searchTerm)
+      filteredData = filteredData.filter(
+        (item: InventoryItem) =>
+          item.itemName?.toLowerCase().includes(searchTerm) ||
+          item.genericName?.toLowerCase().includes(searchTerm) ||
+          item.supplierName?.toLowerCase().includes(searchTerm),
       );
     }
     return filteredData;

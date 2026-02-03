@@ -120,7 +120,7 @@ const DashboardCards = ({
       },
       {
         id: "OP",
-        cardTitle: "OPD Prescription Sales (Amount)",
+        cardTitle: "OPD Sales (Amount)",
         number: displayData?.opdItem ?? 0,
         percent: "+3.75%",
         fIcon: <BsClipboard2Pulse size={26} color="white" />,
